@@ -7,9 +7,8 @@ module.exports = ({ headers }, res, next) => {
 
   try {
     verifyToken(token);
+    next();
   } catch (err) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
-
-  next();
 };

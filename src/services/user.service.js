@@ -1,6 +1,5 @@
 const { User } = require('../models');
 const { createToken } = require('../utils/jwt');
-
 const { validateUser } = require('./validations/validateInputValues');
 
 const create = async (displayName, email, password, image) => {
@@ -16,9 +15,17 @@ const create = async (displayName, email, password, image) => {
 };
 
 const findAll = async () => {
-  const users = await User.findAll({ attributes: { exclude: 'password' } });
-  
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
   return { type: null, message: users };
 };
 
-module.exports = { create, findAll };
+const findById = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+
+  if (!user) return { type: 404, message: 'User does not exist' };
+
+  return { type: null, message: user };
+};
+
+module.exports = { create, findAll, findById };

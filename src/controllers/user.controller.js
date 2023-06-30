@@ -10,4 +10,12 @@ const create = async (req, res) => {
   res.status(201).json({ token: message });
 };
 
-module.exports = { create };
+const findAll = async (_req, res) => {
+  const { type, message } = await userService.findAll();
+
+  if (type) return res.status(type).json({ message });
+
+  res.status(200).json(message);
+};
+
+module.exports = { create, findAll };

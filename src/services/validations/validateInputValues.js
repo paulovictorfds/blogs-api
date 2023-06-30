@@ -5,7 +5,7 @@ const validateUser = (user) => {
 
   if (error) return { type: 400, message: error.message };
 
-  return { type: null, message: null };
+  return { type: null, message: '' };
 };
 
 module.exports = { validateUser };

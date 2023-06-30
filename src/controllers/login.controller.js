@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
   }
 
   const { type, message } = await loginService(email, password);
-  console.log(type, message);
 
   if (type) return res.status(type).json({ message });
 

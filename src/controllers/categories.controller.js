@@ -10,4 +10,10 @@ const create = async (req, res) => {
   res.status(201).json(category);
 };
 
-module.exports = { create };
+const findAll = async (_req, res) => {
+  const categories = await categoriesService.findAll();
+
+  res.status(200).json(categories);
+};
+
+module.exports = { create, findAll };

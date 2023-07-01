@@ -2,12 +2,12 @@ const { categoriesService } = require('../services');
 
 const create = async (req, res) => {
   const { name } = req.body;
-  console.log(name);
-  const { type, message } = await categoriesService.create(name);
 
-  if (type) return res.status(type).json({ message });
+  if (!name) return res.status(400).json({ message: '"name" is required' });
 
-  res.status(201).json({ token: message });
+  const category = await categoriesService.create(name);
+
+  res.status(201).json(category);
 };
 
 module.exports = { create };

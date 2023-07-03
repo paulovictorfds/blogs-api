@@ -11,4 +11,9 @@ const create = async (req, res) => {
   res.status(201).json(message);
 };
 
-module.exports = { create };
+const findAll = async (_req, res) => {
+  const { type, message } = await postService.findAll();
+  res.status(type).json(message);
+};
+
+module.exports = { create, findAll };

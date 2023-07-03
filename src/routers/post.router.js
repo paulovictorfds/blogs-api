@@ -6,4 +6,6 @@ const router = Router();
 
 router.post('/', authenticateToken, postController.create);
 
+router.get('/', authenticateToken, postController.findAll);
+
 module.exports = router;

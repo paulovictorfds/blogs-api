@@ -1,12 +1,12 @@
 const { verifyToken } = require('../utils/jwt');
 
-module.exports = ({ headers }, res, next) => {
-  const token = headers.authorization;
+module.exports = (req, res, next) => {
+  const token = req.headers.authorization;
 
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    verifyToken(token);
+    req.user = verifyToken(token);
     next();
   } catch (err) {
     res.status(401).json({ message: 'Expired or invalid token' });

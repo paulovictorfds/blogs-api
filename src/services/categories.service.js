@@ -1,7 +1,7 @@
 const { Category } = require('../models');
 
-const create = async (name) => Category.create({ name });
+const create = (name) => Category.create({ name });
 
-const findAll = async () => Category.findAll({ attributes: { exclude: ['password'] } });
+const findAll = () => Category.findAll({ attributes: { exclude: ['password'] } });
 
 module.exports = { create, findAll };

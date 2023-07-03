@@ -10,20 +10,18 @@ const create = async (req, res) => {
 };
 
 const findAll = async (_req, res) => {
-  const { type, message } = await userService.findAll();
+  const users = await userService.findAll();
 
-  if (type) return res.status(type).json({ message });
-
-  res.status(200).json(message);
+  res.status(200).json(users);
 };
 
 const findById = async (req, res) => {
   const { id } = req.params;
-  const { type, message } = await userService.findById(id);
+  const user = await userService.findById(id);
 
-  if (type) return res.status(type).json({ message });
+  if (!user) return res.status(404).json({ message: 'User does not exist' });
 
-  res.status(200).json(message);
+  res.status(200).json(user);
 };
 
 module.exports = { create, findAll, findById };

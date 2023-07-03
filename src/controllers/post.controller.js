@@ -12,8 +12,18 @@ const create = async (req, res) => {
 };
 
 const findAll = async (_req, res) => {
-  const { type, message } = await postService.findAll();
-  res.status(type).json(message);
+  const posts = await postService.findAll();
+
+  res.status(200).json(posts);
 };
 
-module.exports = { create, findAll };
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const post = await postService.findById(id);
+
+  if (!post) return res.status(404).json({ message: 'Post does not exist' });
+
+  res.status(200).json(post);
+};
+
+module.exports = { create, findAll, findById };

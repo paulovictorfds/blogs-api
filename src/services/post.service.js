@@ -17,15 +17,18 @@ const create = async (title, content, categoryIds, userId) => {
   }
 };
 
-const findAll = async () => {
-  const posts = await BlogPost.findAll({
-    include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories', through: { attributes: [] } },
-    ],
-  });
+const findAll = async () => BlogPost.findAll({
+  include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+});
 
-  return { type: 200, message: posts };
-};
+const findById = async (id) => BlogPost.findByPk(id, {
+  include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+});
 
-module.exports = { create, findAll };
+module.exports = { create, findAll, findById };

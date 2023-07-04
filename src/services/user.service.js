@@ -18,4 +18,6 @@ const findAll = () => User.findAll({ attributes: { exclude: ['password'] } });
 
 const findById = (id) => User.findByPk(id, { attributes: { exclude: ['password'] } });
 
-module.exports = { create, findAll, findById };
+const deleteUser = async (userId) => User.destroy({ where: { id: userId } });
+
+module.exports = { create, findAll, findById, deleteUser };

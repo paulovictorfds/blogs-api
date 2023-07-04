@@ -10,4 +10,6 @@ router.get('/', authenticateToken, postController.findAll);
 
 router.get('/:id', authenticateToken, postController.findById);
 
+router.put('/:id', authenticateToken, postController.update);
+
 module.exports = router;

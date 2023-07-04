@@ -31,4 +31,14 @@ const findById = (id) => BlogPost.findByPk(id, {
   ],
 });
 
-module.exports = { create, findAll, findById };
+const update = async (postId, title, content, userId) => {
+  const post = await BlogPost.findByPk(postId);
+
+  if (post.userId !== userId) return { type: 401, message: 'Unauthorized user' };
+
+  await post.update({ title, content }, { where: { userId, id: postId } });
+
+  return { type: null, message: 'Post updated successfully' };
+};
+
+module.exports = { create, findAll, findById, update };

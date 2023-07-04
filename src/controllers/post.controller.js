@@ -26,4 +26,20 @@ const findById = async (req, res) => {
   res.status(200).json(post);
 };
 
-module.exports = { create, findAll, findById };
+const update = async (req, res) => {
+  const { id: postId } = req.params;
+  const { id: userId } = req.user;
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+
+  const { type, message } = await postService.update(postId, title, content, userId);
+
+  if (type) return res.status(type).json({ message });
+
+  res.status(200).json(await postService.findById(postId));
+};
+
+module.exports = { create, findAll, findById, update };
